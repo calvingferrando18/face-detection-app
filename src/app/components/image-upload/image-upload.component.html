@@ -1,0 +1,47 @@
+<div class="text-center py-4">
+  <input
+    type="file"
+    accept="image/*"
+    (change)="onFileSelected($event)"
+    #fileInput
+    class="d-none"
+  />
+  <p class="text-muted mb-3">
+    Upload an image to automatically detect faces and display age and gender
+    information. The system will highlight detected faces with a green
+    rectangle.
+  </p>
+  <button class="btn btn-primary" (click)="fileInput.click()">
+    <i class="bi bi-upload me-2"></i>Upload File
+  </button>
+  <div *ngIf="selectedFile" class="selected-file mt-3">
+    <span class="text-muted">Selected file: </span>
+    <span class="fw-medium">{{ selectedFile.name }}</span>
+    <small class="text-muted ms-2"
+      >({{ (selectedFile.size / 1024).toFixed(1) }} KB)</small
+    >
+  </div>
+  <ng-container *ngIf="imageUrl">
+    <div *ngIf="loading$ | async; else loaded" class="mt-4 text-center">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      <p class="text-muted mt-2">Detecting faces...</p>
+    </div>
+
+    <ng-template #loaded>
+      <div *ngIf="error$ | async; else preview" class="alert alert-danger mt-4">
+        {{ error$ | async }}
+      </div>
+      <ng-template #preview>
+        <app-image-preview
+          #imagePreview
+          [imageUrl]="imageUrl"
+          [originalImageDimensions]="originalImageDimensions"
+          [faceRectangle]="faceRectangle"
+          [faceDetails]="faceDetails"
+        ></app-image-preview>
+      </ng-template>
+    </ng-template>
+  </ng-container>
+</div>

@@ -1,0 +1,16 @@
+.max-height-400 {
+  max-height: 400px;
+  object-fit: contain;
+}
+
+.nav-link {
+  cursor: pointer;
+
+  &.disabled {
+    cursor: not-allowed;
+  }
+}
+
+.card-body {
+  min-height: 300px;
+}
