@@ -1,0 +1,15 @@
+<div class="history d-flex flex-wrap">
+  @for (item of history$ | async; track $index) { @if (item.image &&
+  item.result) {
+  <div class="m-1 image" style="background-image: url({{ item.image }});" (click)="onPreview(item)"></div>
+  } }
+</div>
+<div *ngIf="selectedImage && selectedImage.image">
+  <app-image-preview
+    #imagePreview
+    [imageUrl]="selectedImage.image"
+    [originalImageDimensions]="originalImageDimensions"
+    [faceRectangle]="faceRectangle"
+    [faceDetails]="faceDetails"
+  ></app-image-preview>
+</div>
