@@ -6,7 +6,7 @@ export const selectFaceDetectionState =
 
 export const selectTFaceDetectionResult = createSelector(
   selectFaceDetectionState,
-  (state) => state.result
+  (state) => state.history.length > 0 && state.history[state.history.length - 1].result || null
 );
 
 export const selectFaceDetectionLoading = createSelector(

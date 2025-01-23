@@ -15,7 +15,6 @@ export const faceDetectionReducer = createReducer(
   })),
   on(detectFaceSuccess, (state, { image, result }) => ({
     ...state,
-    result,
     history: [...state.history, { result, image }],
     loading: false,
   })),
